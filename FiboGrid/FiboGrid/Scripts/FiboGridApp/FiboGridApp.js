@@ -22,19 +22,19 @@ app.controller('GridController', function ($scope, CellService, $http) {
 
         IncreaseValue(clickedCell);
                      
-        setTimeout(function () {            
-                $scope.$apply(function () {
-                    ClearChangedColor(clickedCell);
-                });
-        }, 1000);
-
         setTimeout(function () {
             {
                 $scope.$apply(function () {
                     FiboCheck(clickedCell);
                 });
             };
-        }, 1000);     
+        }, 500);
+
+        setTimeout(function () {
+            $scope.$apply(function () {
+                ClearChangedColor(clickedCell);
+            });
+        }, 1000);
 
         setTimeout(function () {
             {
@@ -42,7 +42,7 @@ app.controller('GridController', function ($scope, CellService, $http) {
                     ClearClearedColor();
                 });
             };
-        }, 2000);  
+        }, 1500); 
     }
 
     function IncreaseValue(clickedCell) {
