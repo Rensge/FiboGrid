@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "FiboGrid";
+}
+<div ng-controller="GridController">
+    <table>
+        <tr ng-repeat="row in Grid">
+            <td ng-repeat="cell in row">
+                <div>
+                    <div class="cell btn btn-outline-primary" ng-model="cell" ng-class="{changed: cell.Changed, cleared: cell.Cleared}" ng-click="ClickCell(cell)">
+                        <span ng-show="cell.Value > 0">{{ cell.Value }}</span>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
