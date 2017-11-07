@@ -19,13 +19,11 @@ app.controller('GridController', function ($scope, CellService, $http) {
 
     $scope.ClickCell = function (clickedCell) {
         IncreaseValue(clickedCell);
-                     
+
         setTimeout(function () {
-            {
-                $scope.$apply(function () {
-                    FiboCheck(clickedCell);
-                });
-            };
+            $scope.$apply(function () {
+                FiboCheck(clickedCell);
+            });
         });
 
         setTimeout(function () {
@@ -65,7 +63,7 @@ app.controller('GridController', function ($scope, CellService, $http) {
         }
 
         for (row in grid) {
-            columnCell = grid[row][clickedCell.Vertical - 1].Changed = false;
+            grid[row][clickedCell.Vertical - 1].Changed = false;
         }
     }
 
@@ -73,35 +71,33 @@ app.controller('GridController', function ($scope, CellService, $http) {
     // cells in existing fibonacci sequences will be cleared and light up green
     function FiboCheck(clickedCell) {
         var grid = $scope.Grid;
-        for (row in grid) {                
+        for (row in grid) {
 
             var cellValues = [];
             for (cell in $scope.Grid[row]) {
-                
+
                 if (cell != "$$hashKey") {
                     cellValues.push(grid[row][cell].Value);
                 };
             }
-            
+
             CellService.FiboCheck(cellValues, row)
                 .then(function (response) {
                     var processedrow = response.data.Row;
-                    var fiboCells = response.data.FiboSerieCells; 
+                    var fiboCells = response.data.FiboSerieCells;
 
-                    for (index in fiboCells) {                        
+                    for (index in fiboCells) {
                         grid[processedrow][fiboCells[index]].Cleared = true;
                     }
 
                     setTimeout(function () {
-                        {
-                            $scope.$apply(function () {
-                                for (index in fiboCells) {
-                                    grid[processedrow][fiboCells[index]].Cleared = false;
-                                    grid[processedrow][fiboCells[index]].Value = 0;
-                                }
-                            });
-                        };
-                    }, 1000); 
+                        $scope.$apply(function () {
+                            for (index in fiboCells) {
+                                grid[processedrow][fiboCells[index]].Cleared = false;
+                                grid[processedrow][fiboCells[index]].Value = 0;
+                            }
+                        });
+                    }, 1000);
                 })
                 .catch(function (data, status) {
                     console.error('Error executing FiboCheck', response.status, response.data);
