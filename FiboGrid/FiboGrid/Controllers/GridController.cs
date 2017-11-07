@@ -36,6 +36,8 @@ namespace FiboGrid.Controllers
             return new JsonResult { Data = cellList, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
+        // receives a string with comma seperated values and the rowindex
+        // returns a list with indexes where fibonacci sequences are found
         public JsonResult FiboCheck(string cellValues, int row) {
 
             var fiboSerieEndValues = new List<int>();
@@ -49,12 +51,11 @@ namespace FiboGrid.Controllers
                     continue;
                 }
                     
-                if (IsFiboNumber(numberList[i]) 
-                    && IsFiboNumber(numberList[i - 4]) 
-                    && IsFiboNumber(numberList[i - 3])
-                    && IsFiboNumber(numberList[i - 2])
-                    && IsFiboNumber(numberList[i - 1])
-                    && IsInCorrectOrder(numberList[i - 4], numberList[i - 3], numberList[i - 2], numberList[i - 1], numberList[i]))
+                if (IsFiboNumber(numberList[i - 4]) &&
+                    IsFiboNumber(numberList[i - 3]) &&
+                    IsFiboNumber(numberList[i - 2]) &&
+                    IsFiboNumber(numberList[i - 1]) &&
+                    IsInCorrectOrder(numberList[i - 4], numberList[i - 3], numberList[i - 2], numberList[i - 1], numberList[i]))
                 {
                     fiboSerieEndValues.AddRange(new List<int> () { i - 4, i - 3, i - 2, i - 1, i });
                 }
@@ -69,6 +70,7 @@ namespace FiboGrid.Controllers
         //Equation modified from http://www.geeksforgeeks.org/check-number-fibonacci-number/
         private bool IsFiboNumber (int numberValue)
         {   
+            // return true when number belongs to fibonacci sequence
             return IsPerfectSquare(5 * numberValue * numberValue + 4) ||
                    IsPerfectSquare(5 * numberValue * numberValue - 4);
         }
@@ -80,8 +82,9 @@ namespace FiboGrid.Controllers
 
         private bool IsInCorrectOrder(int number1, int number2, int number3, int number4, int number5)
         {
+            // number values should be in ascending order
             return (number5 == number4 + number3 && number3 < number4) &&
-                   (number4 == number3 + number2 && number2 < number3) &&
+                   (number4 == number3 + number2 && number2 <= number3) &&
                    (number3 == number2 + number1 && number1 <= number2);
         }
     }
