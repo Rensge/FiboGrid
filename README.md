@@ -10,6 +10,5 @@ Empty cells will get value 1 when increased. After each change, cells will light
 <i>Cell values are increased when clicked and lighting up shortly</i>
 
 ![fibonacci sequence](https://github.com/Rensge/FiboGrid/blob/feature/readme-file/FiboGrid/FiboGrid/Content/Screenshots/Fibonacci.png)
-
 <br/>
 <i>Fibonacci sequences will light up green and then cleared</i>
