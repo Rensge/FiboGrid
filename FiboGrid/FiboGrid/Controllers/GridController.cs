@@ -80,9 +80,9 @@ namespace FiboGrid.Controllers
             return number > 0 && Math.Sqrt(number) % 1 == 0;
         }
 
+        // number values should be in ascending order
         private bool IsInCorrectOrder(int number1, int number2, int number3, int number4, int number5)
-        {
-            // number values should be in ascending order
+        {            
             return (number5 == number4 + number3 && number3 < number4) &&
                    (number4 == number3 + number2 && number2 <= number3) &&
                    (number3 == number2 + number1 && number1 <= number2);
