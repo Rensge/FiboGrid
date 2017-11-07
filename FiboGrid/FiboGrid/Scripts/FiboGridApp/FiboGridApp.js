@@ -2,7 +2,6 @@
 
 app.controller('GridController', function ($scope, CellService, $http) {
     $scope.Grid = null;
-    $scope.fiboCells = null;
 
     function Getcells() {
         CellService.GetCells()
@@ -19,7 +18,6 @@ app.controller('GridController', function ($scope, CellService, $http) {
     Getcells();
 
     $scope.ClickCell = function (clickedCell) {
-
         IncreaseValue(clickedCell);
                      
         setTimeout(function () {
@@ -38,11 +36,9 @@ app.controller('GridController', function ($scope, CellService, $http) {
     }
 
     function IncreaseValue(clickedCell) {
-
-
         var grid = $scope.Grid;
 
-        // increasing cell values in the row of the clicked cellvar 
+        // increasing cell values and change color in the row of the clicked cell
         var cellRow = grid[clickedCell.Horizontal - 1]
         for (cell in cellRow) {
             var rowCell = cellRow[cell];
@@ -50,7 +46,7 @@ app.controller('GridController', function ($scope, CellService, $http) {
             rowCell.Changed = true;
         }
 
-        // increasing cell values in the column of the clicked cell
+        // increasing cell values and change color in the column of the clicked cell
         for (row in grid) {
             if (row != clickedCell.Horizontal - 1) {
                 columnCell = grid[row][clickedCell.Vertical - 1];
@@ -61,7 +57,6 @@ app.controller('GridController', function ($scope, CellService, $http) {
     }
 
     function ClearChangedColor(clickedCell) {
-
         var grid = $scope.Grid;
         var cellRow = grid[clickedCell.Horizontal - 1]
 
@@ -74,6 +69,8 @@ app.controller('GridController', function ($scope, CellService, $http) {
         }
     }
 
+    // checks cell values in all rows for fibonacci sequences
+    // cells in existing fibonacci sequences will be cleared and light up green
     function FiboCheck(clickedCell) {
         var grid = $scope.Grid;
         for (row in grid) {                
